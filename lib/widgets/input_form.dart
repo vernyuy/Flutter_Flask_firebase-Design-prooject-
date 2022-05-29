@@ -5,6 +5,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import '../providers/healthInfo.dart';
+import '../providers/healt.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 class InputForm extends StatefulWidget {
   @override
@@ -13,8 +17,33 @@ class InputForm extends StatefulWidget {
 
 class _InputFormState extends State<InputForm> {
   //  Variables
-
+  var _healthParams = HealthInfo(
+    Age: 0,
+    CA: 0,
+    Sex: 0,
+    Thal: 0,
+    chol: 0,
+    cp: 0,
+    exang: 0,
+    fps: 0,
+    oldpeak: 0,
+    restecg: 0,
+    slope: 0,
+    trestbps: 0,
+  );
   late String title;
+  // late int Age;
+  // late int CA;
+  // late int Sex;
+  // late int Thal;
+  // late int chol;
+  // late int cp;
+  // late int exang;
+  // late int fps;
+  // late int oldpeak;
+  // late int restecg;
+  // late int slope;
+  // late int trestbps;
   String text = "No Value Entered";
 
   void _setText() {
@@ -40,6 +69,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: int.parse(value),
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -47,8 +94,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'Your Age',
+                    hintText: 'Enter Your Age',
                   ),
                 ),
               ),
@@ -59,20 +106,19 @@ class _InputFormState extends State<InputForm> {
                         EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
                   ),
                   DropdownButton(
-                    value: dropdownvalue,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                  ),
+                      value: dropdownvalue,
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: items.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownvalue = newValue!;
+                        });
+                      }),
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
@@ -103,7 +149,20 @@ class _InputFormState extends State<InputForm> {
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],
-                    onChanged: (value) => title = value,
+                    onChanged: (value) => _healthParams = HealthInfo(
+                      Age: _healthParams.Age,
+                      CA: int.parse(value),
+                      Sex: _healthParams.Sex,
+                      Thal: _healthParams.Thal,
+                      chol: _healthParams.chol,
+                      cp: _healthParams.cp,
+                      exang: _healthParams.exang,
+                      fps: _healthParams.fps,
+                      oldpeak: _healthParams.oldpeak,
+                      restecg: _healthParams.restecg,
+                      slope: _healthParams.slope,
+                      trestbps: _healthParams.trestbps,
+                    ),
                     style: TextStyle(
                       fontSize: 15.0,
                       height: 0.01,
@@ -135,6 +194,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: int.parse(value),
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -150,6 +227,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: int.parse(value),
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -180,6 +275,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: int.parse(value),
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -195,6 +308,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: int.parse(value),
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -210,6 +341,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: int.parse(value),
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -225,6 +374,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: int.parse(value),
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -240,6 +407,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: int.parse(value),
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -255,6 +440,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: int.parse(value),
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -270,6 +473,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: int.parse(value),
+                    trestbps: _healthParams.trestbps,
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -285,6 +506,24 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol: _healthParams.chol,
+                    cp: _healthParams.cp,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: int.parse(value),
+                  ),
                   style: TextStyle(
                     fontSize: 15.0,
                     height: 0.01,
@@ -317,21 +556,14 @@ class _InputFormState extends State<InputForm> {
                 color: Colors.blue,
                 child: Text('Predict'),
                 onPressed: () async {
-                  final url = Uri.http("192.168.8.100:5000", "/");
+                  final url = Uri.http("192.168.0.101:5000", "/");
                   final res = await http.post(
                     url,
                     body: json.encode({'test': 'test'}),
-                    headers: {
-                      'Content-Type': "application/json; charset=utf-8"
-                    },
                   );
 
-                  print("Status Code: ${res.statusCode}");
-                  print("Return Body: ${res.body}");
-
                   if (res.statusCode == 200) {
-                    final infoResponse =
-                        jsonDecode(res.body) as Map<String, dynamic>;
+                    // final infoResponse = jsonDecode(res.body) as Map<String, dynamic>;
                     // prediction = infoResponse['prediction'];
                     // setState(() {
                     //   pred = prediction;
@@ -341,6 +573,9 @@ class _InputFormState extends State<InputForm> {
                     // ignore: avoid_print
                     print('request failed with status: ${res.statusCode}');
                   }
+
+                  Provider.of<Health>(context, listen: false)
+                      .addInfo(_healthParams);
                 },
               )
             ],

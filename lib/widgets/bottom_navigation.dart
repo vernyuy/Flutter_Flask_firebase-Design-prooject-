@@ -121,7 +121,7 @@ class _TabsScreenState extends State<TabsScreen> {
           Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
           Text('Heart Doctor')
         ],
-      )
+      ),
     },
   ];
   int _selectedPageIndex = 0;
