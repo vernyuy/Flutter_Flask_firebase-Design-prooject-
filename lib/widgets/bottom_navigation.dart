@@ -62,7 +62,7 @@
 // //   );
 // // }
 
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, duplicate_ignore
 
 import 'package:circularbar/widgets/history.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +138,17 @@ class _TabsScreenState extends State<TabsScreen> {
     var wid = _pages[_selectedPageIndex]['page'];
     return Scaffold(
       appBar: AppBar(
+        // leading: ,
+        actions: [
+      //     Drawer(
+      //   child: Column(
+      //     children: <Widget>[
+      //       Text("Help"),
+      //       Text("How to us this app")
+      //     ],
+      //   ),
+      // ),
+        ],
         title: _pages[_selectedPageIndex]['title'],
       ),
       body: _pages[_selectedPageIndex]['page'],
@@ -145,7 +156,7 @@ class _TabsScreenState extends State<TabsScreen> {
         onTap: _selectPage,
         backgroundColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.purple,
+        selectedItemColor: Colors.black,
         currentIndex: _selectedPageIndex,
         // type: BottomNavigationBarType.fixed,
         items: [
@@ -166,6 +177,14 @@ class _TabsScreenState extends State<TabsScreen> {
             // title: _pages[_selectedPageIndex]['title'],
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Text("Help"),
+            Text("How to us this app")
+          ],
+        ),
       ),
     );
   }

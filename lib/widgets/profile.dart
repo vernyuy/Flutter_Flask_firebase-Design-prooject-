@@ -38,17 +38,41 @@ class Profile extends StatelessWidget {
                 height: 160,
                 width: 400,
                 child: Card(
-                    child: Column(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:60.0, vertical: 2),
+                      child: Column(
                   children: [
-                    Center(child: Text('My Info')),
-                    Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 0.0),
-                        ),
-                    Row(
-                      children: [
+                      Center(child: Text('My Info')),
+                      Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 0.0),
+                          ),
+                      Row(
+                        children: [
+                          Text(
+                            'Name: ',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 20.0),
+                          ),
+                          Text(
+                            'N. Pelagie',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(children: [
                         Text(
-                          'Name: ',
+                          'Age: ',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -59,76 +83,79 @@ class Profile extends StatelessWidget {
                               vertical: 5.0, horizontal: 20.0),
                         ),
                         Text(
-                          'N. Pelagie',
+                          '40years',
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
+                            fontStyle: FontStyle.italic
+                          ),
+                        )
+                      ]),
+                      Row(children: [
+                        Text(
+                          'Sex: ',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
-                    Row(children: [
-                      Text(
-                        'Age: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 20.0),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 20.0),
-                      ),
-                      Text(
-                        '40years',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
-                        ),
-                      )
-                    ]),
-                    Row(children: [
-                      Text(
-                        'Sex: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 20.0),
-                      ),
-                      Text(
-                        'Female',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
-                        ),
-                      )
-                    ])
+                        Text(
+                          'Female',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic
+                          ),
+                        )
+                      ])
                   ],
-                )),
+                ),
+                    )),
               ),
 
               Container(
                 height: 150,
                 width: 400,
                 child: Card(
-                    child: Column(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:30.0, vertical: 2),
+                      child: Column(
                   children: [
-                    Center(child: Text('My Docs Info')),
-                    Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 0.0),
-                        ),
-                    Row(
-                      children: [
+                      Center(child: Text('My Docs Info')),
+                      Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 0.0),
+                          ),
+                      Row(
+                        children: [
+                          Text(
+                            'Name: ',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 5.0, horizontal: 20.0),
+                          ),
+                          Text(
+                            'Dr. F Fonchu',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(children: [
                         Text(
-                          'Name: ',
+                          'Contact: ',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -139,59 +166,38 @@ class Profile extends StatelessWidget {
                               vertical: 5.0, horizontal: 20.0),
                         ),
                         Text(
-                          'Dr. F Fonchu',
+                          '650863381',
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
+                            fontStyle: FontStyle.italic
+                          ),
+                        )
+                      ]),
+                      Row(children: [
+                        Text(
+                          'Mail: ',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
-                    Row(children: [
-                      Text(
-                        'Contact: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 5.0, horizontal: 20.0),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 20.0),
-                      ),
-                      Text(
-                        '650863381',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
-                        ),
-                      )
-                    ]),
-                    Row(children: [
-                      Text(
-                        'Mail: ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 20.0),
-                      ),
-                      Text(
-                        'fonchu@fonchu.cm',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic
-                        ),
-                      )
-                    ])
+                        Text(
+                          'fonchu@fonchu.cm',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic
+                          ),
+                        )
+                      ])
                   ],
-                )),
+                ),
+                    )),
               )
             ],
           ),

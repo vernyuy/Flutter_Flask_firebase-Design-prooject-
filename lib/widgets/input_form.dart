@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, unused_local_variable, avoid_print, use_key_in_widget_constructors, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, unused_local_variable, avoid_print, use_key_in_widget_constructors, deprecated_member_use, unused_import, annotate_overrides
 
 import 'dart:convert';
 
@@ -16,6 +16,13 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
+
+  void initState() {
+    super.initState();
+    // readData();
+  }
+  
+  bool isLoading = true;
   //  Variables
   var _healthParams = HealthInfo(
     Age: 0,
@@ -99,47 +106,47 @@ class _InputFormState extends State<InputForm> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-                  ),
-                  DropdownButton(
-                      value: dropdownvalue,
-                      icon: const Icon(Icons.keyboard_arrow_down),
-                      items: items.map((String items) {
-                        return DropdownMenuItem(
-                          value: items,
-                          child: Text(items),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownvalue = newValue!;
-                        });
-                      }),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-                  ),
-                  DropdownButton(
-                    value: dropdownvalue,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: items.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownvalue = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Padding(
+              //       padding:
+              //           EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
+              //     ),
+              //     DropdownButton(
+              //         value: dropdownvalue,
+              //         icon: const Icon(Icons.keyboard_arrow_down),
+              //         items: items.map((String items) {
+              //           return DropdownMenuItem(
+              //             value: items,
+              //             child: Text(items),
+              //           );
+              //         }).toList(),
+              //         onChanged: (String? newValue) {
+              //           setState(() {
+              //             dropdownvalue = newValue!;
+              //           });
+              //         }),
+              //     Padding(
+              //       padding:
+              //           EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
+              //     ),
+              //     DropdownButton(
+              //       value: dropdownvalue,
+              //       icon: const Icon(Icons.keyboard_arrow_down),
+              //       items: items.map((String items) {
+              //         return DropdownMenuItem(
+              //           value: items,
+              //           child: Text(items),
+              //         );
+              //       }).toList(),
+              //       onChanged: (String? newValue) {
+              //         setState(() {
+              //           dropdownvalue = newValue!;
+              //         });
+              //       },
+              //     ),
+              //   ],
+              // ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                 child: Padding(
@@ -170,27 +177,27 @@ class _InputFormState extends State<InputForm> {
                     ),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Resting bld sugar',
-                      hintText: 'Enter resting blood sugar',
+                      labelText: 'Enter CA value',
+                      hintText: 'Enter CA value',
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-                child: TextField(
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    height: 0.01,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Serun Cholesterol',
-                    hintText: 'Enter Serum Cholesterol',
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
+              //   child: TextField(
+              //     style: TextStyle(
+              //       fontSize: 15.0,
+              //       height: 0.01,
+              //       color: Colors.black,
+              //     ),
+              //     decoration: InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       labelText: 'Serun Cholesterol',
+              //       hintText: 'Enter Serum Cholesterol',
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
@@ -219,8 +226,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Exercise',
-                    hintText: 'Enter ST depression induced by exercise',
+                    labelText: 'Sex',
+                    hintText: 'Enter Sex 1 for male 0 for female',
                   ),
                 ),
               ),
@@ -260,21 +267,6 @@ class _InputFormState extends State<InputForm> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                 child: TextField(
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    height: 0.01,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-                child: TextField(
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
@@ -300,8 +292,41 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'User Chol',
+                    hintText: 'Enter Chol Value',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) => _healthParams = HealthInfo(
+                    Age: _healthParams.Age,
+                    CA: _healthParams.CA,
+                    Sex: _healthParams.Sex,
+                    Thal: _healthParams.Thal,
+                    chol:  _healthParams.chol,
+                    cp: int.parse(value) ,
+                    exang: _healthParams.exang,
+                    fps: _healthParams.fps,
+                    oldpeak: _healthParams.oldpeak,
+                    restecg: _healthParams.restecg,
+                    slope: _healthParams.slope,
+                    trestbps: _healthParams.trestbps,
+                  ),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    height: 0.01,
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'CP value',
+                    hintText: 'Enter Your Chest Pain',
                   ),
                 ),
               ),
@@ -366,8 +391,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'Exang',
+                    hintText: 'Enter Your Exang Value',
                   ),
                 ),
               ),
@@ -399,8 +424,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'fps',
+                    hintText: 'Enter FPS value',
                   ),
                 ),
               ),
@@ -432,8 +457,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'oldpeak',
+                    hintText: 'Enter Your Old Peak value',
                   ),
                 ),
               ),
@@ -465,8 +490,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'Restecg',
+                    hintText: 'Enter Restecg Value',
                   ),
                 ),
               ),
@@ -498,8 +523,8 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'Slope',
+                    hintText: 'Enter Your Slope Value',
                   ),
                 ),
               ),
@@ -531,48 +556,54 @@ class _InputFormState extends State<InputForm> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
+                    labelText: 'TrestBPS',
+                    hintText: 'Enter Your trestbps value',
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-                child: TextField(
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    height: 0.01,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Name',
-                    hintText: 'Enter Your Name',
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
+              //   child: TextField(
+              //     style: TextStyle(
+              //       fontSize: 15.0,
+              //       height: 0.01,
+              //       color: Colors.black,
+              //     ),
+              //     decoration: InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       labelText: 'User Name',
+              //       hintText: 'Enter Your Name',
+              //     ),
+              //   ),
+              // ),
               RaisedButton(
                 textColor: Colors.white,
                 color: Colors.blue,
                 child: Text('Predict'),
                 onPressed: () async {
-                  final url = Uri.http("192.168.0.101:5000", "/");
-                  final res = await http.post(
-                    url,
-                    body: json.encode({'test': 'test'}),
-                  );
+                  // final url = Uri.http("192.168.0.101:5000", "/");
+                  // final getUrl = "192.168.0.101:5000" + "/";
+                  // // final res = await http.post(
+                  // //   url,
+                  // //   body: json.encode({'test': 'test'}),
+                  // // );
+                  // final res = await http.get(
+                  //   Uri.parse(getUrl)
+                  // );
 
-                  if (res.statusCode == 200) {
-                    // final infoResponse = jsonDecode(res.body) as Map<String, dynamic>;
-                    // prediction = infoResponse['prediction'];
-                    // setState(() {
-                    //   pred = prediction;
-                    //   risk = risk
-                    // });
-                  } else {
-                    // ignore: avoid_print
-                    print('request failed with status: ${res.statusCode}');
-                  }
+                  // print(res.body);
+
+                  // if (res.statusCode == 200) {
+                  //   // final infoResponse = jsonDecode(res.body) as Map<String, dynamic>;
+                  //   // prediction = infoResponse['prediction'];
+                  //   // setState(() {
+                  //   //   pred = prediction;
+                  //   //   risk = risk
+                  //   // });
+                  // } else {
+                  //   // ignore: avoid_print
+                  //   print('request failed with status: ${res.statusCode}');
+                  // }
 
                   Provider.of<Health>(context, listen: false)
                       .addInfo(_healthParams);

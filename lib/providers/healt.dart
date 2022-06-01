@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_adjacent_string_concatenation
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,9 +8,8 @@ import './healthInfo.dart';
 
 class Health with ChangeNotifier {
   void addInfo(HealthInfo healthInfo) {
-    print('hello Legend');
-    final url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" +
-        "/info.json";
+    // print('hello Legend');
+    const url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" + "/info.json";
     http.post(
       Uri.parse(url),
       body: json.encode({
