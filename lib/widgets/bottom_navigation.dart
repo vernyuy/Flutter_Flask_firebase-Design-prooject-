@@ -178,11 +178,34 @@ class _TabsScreenState extends State<TabsScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: Column(
           children: <Widget>[
-            Text("Help"),
-            Text("How to us this app")
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical:25.0),
+              child: Text(
+                "Help",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical:8.0),
+              child: Text("How to us this app"),
+            ),
+            Text("1). How to us this app How to us this app How to us this app"),
+            Text("2). How to us this app How to us this app How to us this app"),
+            Text("3). How to us this app How to us this app How to us this app"),
+            Text("4). How to us this app How to us this app How to us this app"),
+            Text("5). How to us this app How to us this app How to us this app"),
+            Text("6). How to us this app How to us this app How to us this app"),
+            Text("7). How to us this app How to us this app How to us this app"),
+            Text("8). How to us this app How to us this app How to us this app"),
+            Text("9). How to us this app How to us this app How to us this app"),
+            Text("10). How to us this app How to us this app How to us this app")
+
           ],
         ),
       ),

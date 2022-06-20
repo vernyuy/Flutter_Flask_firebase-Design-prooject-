@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import './healthInfo.dart';
+import './dateTime.dart';
 
 class Health with ChangeNotifier {
   void addInfo(HealthInfo healthInfo) {
@@ -50,4 +51,20 @@ class Health with ChangeNotifier {
     //   // notifyListeners();
     // });
   }
+
+
+  void addDayTime(DayTime dayTime) {
+    // print('hello Legend');
+    const url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" + "/dayTime.json";
+    http.post(
+      Uri.parse(url),
+      body: json.encode({
+        'Day': dayTime.Day,
+        'Month': dayTime.Month,
+        'Year': dayTime.Year,
+        'Hour': dayTime.Hour,
+        'Min': dayTime.Min
+      }),
+    );
+    }
 }
