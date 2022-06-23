@@ -1,5 +1,8 @@
 
+// ignore_for_file: prefer_const_constructors
+
 import 'package:circularbar/providers/healt.dart';
+import 'package:circularbar/widgets/Login.dart';
 import 'package:flutter/material.dart';
 // import 'package:percent_indicator/percent_indicator.dart';
 // ignore: unused_import
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Heart Doctors',
         theme: ThemeData(primarySwatch: Colors.red),
-        home: TabsScreen(),
+        home: LoginScreen(),
       ),
     );
   }

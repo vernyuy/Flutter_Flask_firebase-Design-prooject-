@@ -179,262 +179,276 @@ class _HistoryState extends State<History> {
 
     return isLoading
         ? Center(child: CircularProgressIndicator())
-        : Center(
-            child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: predHistList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height:200,
-                      child: ListView(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical:8.0),
-                            child: Center(
-                                child: Text(
-                                    'Day ' + dayHistList[index] +
-                                            '/' +
-                                            monthHistList[index]+
-                                            '/' +
-                                            yearHistList[index] + ' Predictions',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20
-                                            ),
-                                          )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                            child: Card(
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Prediction:  ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18.0
-                                            ),
-                                        ),
-                                        Text(
-                                          predHistList[index],
-                                          style: TextStyle(color: Colors.green, fontSize: 14.0),
-                                        ),
-                                      ],
-                                    ),
+        : predHistList.length != dayHistList.length ||
+                tempHistList.length != dayHistList.length ||
+                tempHistList.length != predHistList.length
+            ? Center(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          height: 300,
+                          child: ListView(
+                            children: [
+                              Card(
+                                elevation: 40,
+                                child: Center(
+                                    child: Text(
+                                  "Past Results",
+                                  style: TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.bold,
                                   ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Temperature: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,fontSize: 18.0),
-                                        ),
-                                        // tempHistList.map((data)=>{});
-                                        // tempHistList as Map<Double, dynamic>;
-                                        Text(
-                                          tempHistList[index].toString(),
-                                          style: TextStyle(color: Colors.green, fontSize: 18.0),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  // Row(
-                                  //   children: [
-                                  //     Text(
-                                  //       'Day: ',
-                                  //       style: TextStyle(
-                                  //           fontWeight: FontWeight.bold),
-                                  //     ),
-                                  //     // tempHistList.map((data)=>{});
-                                  //     // tempHistList as Map<Double, dynamic>;
-                                  //     Text(
-                                        // dayHistList[index] +
-                                        //     ':' +
-                                        //     monthHistList[index]+
-                                        //     ':' +
-                                        //     yearHistList[index],
-                                  //       style: TextStyle(color: Colors.green),
-                                  //     ),
-                                  //   ],
-                                  // ),
-
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Time: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold, fontSize: 18.0),
-                                        ),
-                                        Text(
-                                          hourHistList[index] +
-                                              ':' +
-                                              minHistList[index],
-                                          style: TextStyle(color: Colors.green, fontSize: 18.0),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                                    child: Row(
-                                        children: [
-                                          Text(
-                                            'Pulse: ',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold, fontSize: 18),
-                                          ),
-                                          Text(
-                                            pulseHistList[index].toString(),
-                                            style: TextStyle(color: Colors.green, fontSize: 18),
-                                          ),
-                                        ],
-                                      ),
-                                  )
-                                ],
+                                )),
                               ),
-                            ),
-                          )
-                        ],
-                      ));
-                })
-//       child: ListView(children: <Widget>[
-//         Padding(
-//           padding: const EdgeInsets.all(2.0),
-//           child: Column(
-//             children: [
-//               Container(
-//                 child: Row(
-//                   children: <Widget>[
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 25.0, horizontal: 10)),
-//                     Text(
-//                       'BMI',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 0.0, horizontal: 12)),
-//                     Text(
-//                       'Temp',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 0.0, horizontal: 12)),
-//                     Text(
-//                       'BP',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 0.0, horizontal: 12)),
-//                     Text(
-//                       'Risk',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 0.0, horizontal: 12)),
-//                     Text(
-//                       'Predictions',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Padding(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 0.0, horizontal: 12)),
-//                     Text(
-//                       'Risk',
-//                       style: TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               RaisedButton(
-//                   textColor: Colors.white,
-//                   color: Colors.blue,
-//                   child: Text('Load History'),
-//                   onPressed: () async {
-//                     final urlSensor =
-//                         "https://heartdoc-ff00b-default-rtdb.firebaseio.com" +
-//                             "/sensorData.json";
-//                     final SensorRes =await http.get(
-//                       Uri.parse(urlSensor),
-//                     );
-
-//                     // print(SensorRes.body);
-//                     final val = SensorRes.body;
-//                     final extractedSensor =
-//                         await json.decode(val) as Map<String, dynamic>;
-//                     final List<SensorData> loadedInf = [];
-//                     extractedSensor.forEach((HistoryID, HistoryData) {
-//                       loadedInf.add(
-//                         SensorData(
-//                             id: HistoryID,
-//                             Temp: HistoryData['temp'],
-//                             Pulse: HistoryData['pulse']),
-//                       );
-//                       // print(extractedHist);
-//                       History = loadedInf.cast<HealthHistory>();
-//                       // print('Data in history:');
-//                       // // fetchedData();
-//                       // print(History);
-//                       print(loadedInf);
-//                     });
-
-//                     final urlPred =
-//                         "https://heartdoc-ff00b-default-rtdb.firebaseio.com" +
-//                             "/prediction.json";
-//                     final PredRes =await http.get(
-//                       Uri.parse(urlPred),
-//                     );
-//                     // print(SensorRes.body);
-//                     final pred = PredRes.body;
-//                     final extractedPred =
-//                         await json.decode(pred) as Map<String, dynamic>;
-//                     final List<Pred> loadedPred = [];
-//                     extractedPred.forEach((PredHistoryID, PredHistoryData) {
-//                       loadedPred.add(
-//                         Pred(
-//                             id: PredHistoryID,
-//                             Prediction: PredHistoryData['pred'])
-//                       );
-//                       // print(extractedHist);
-//                       // History = loadedInf;
-//                       // print('Data in history:');
-//                       // // fetchedData();
-//                       // print(History);
-//                       print(loadedPred[0]);
-//                     });
-
-//                     loadedPred.map((data) => print(data));
-//                     finalHist.add(extractedPred);
-//                     // Pred(Prediction: extractedPred['pred'], id: extractedPred);
-//                     print(extractedPred);
-//                   })
-//             ],
-//           ),
-
-// // History as Map<String, dynamic>;
-// // print{History};
-//         ),
-//       ]),
-//     );
-//     // ignore: dead_code
-//   }
-
-//   void fetchedData(){
-//     print(History);
-//   }
-            );
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Center(
+                                    child: Text(
+                                  'Day ' +
+                                      dayHistList[index] +
+                                      '/' +
+                                      monthHistList[index] +
+                                      '/' +
+                                      yearHistList[index] +
+                                      ' Predictions',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40.0, vertical: 2),
+                                child: Card(
+                                  elevation: 15,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal:30.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Prediction:  ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.0),
+                                              ),
+                                              Text(
+                                                predHistList[index],
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.w800,),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Temperature: ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.0),
+                                              ),
+                                              // tempHistList.map((data)=>{});
+                                              // tempHistList as Map<Double, dynamic>;
+                                              Text(
+                                                tempHistList[index].toString(),
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.w800,),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Time: ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.0),
+                                              ),
+                                              Text(
+                                                hourHistList[index] +
+                                                    ':' +
+                                                    minHistList[index],
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.w800,),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0, vertical: 10),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                'Pulse: ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18),
+                                              ),
+                                              Text(
+                                                pulseHistList[index].toString(),
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.w800,),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ));
+                    }))
+            : Center(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: predHistList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          height: 200,
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Center(
+                                    child: Text(
+                                  'Day ' +
+                                      dayHistList[index] +
+                                      '/' +
+                                      monthHistList[index] +
+                                      '/' +
+                                      yearHistList[index] +
+                                      ' Predictions',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 2),
+                                child: Card(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Prediction:  ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0),
+                                            ),
+                                            Text(
+                                              predHistList[index],
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 14.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Temperature: ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0),
+                                            ),
+                                            // tempHistList.map((data)=>{});
+                                            // tempHistList as Map<Double, dynamic>;
+                                            Text(
+                                              tempHistList[index].toString(),
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 18.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Time: ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.0),
+                                            ),
+                                            Text(
+                                              hourHistList[index] +
+                                                  ':' +
+                                                  minHistList[index],
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 18.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 10),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              'Pulse: ',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                            Text(
+                                              pulseHistList[index].toString(),
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ));
+                    })
+//
+                );
   }
 }

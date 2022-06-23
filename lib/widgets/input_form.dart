@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, unused_local_variable, avoid_print, use_key_in_widget_constructors, deprecated_member_use, unused_import, annotate_overrides, prefer_const_declarations
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, unused_local_variable, avoid_print, use_key_in_widget_constructors, deprecated_member_use, unused_import, annotate_overrides, prefer_const_declarations, dead_code
 
 import 'dart:convert';
 
@@ -17,13 +17,15 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
-
   void initState() {
     super.initState();
     // readData();
   }
-  
+
+  Map<String, dynamic> Resp = {};
   bool isLoading = true;
+  bool predict = false;
+  bool prediction = false;
   //  Variables
   var _healthParams = HealthInfo(
     Age: 0,
@@ -40,13 +42,7 @@ class _InputFormState extends State<InputForm> {
     trestbps: 0,
   );
 
-  var _dayTime = DayTime(
-    Day: "", 
-    Month: "", 
-    Year: "", 
-    Hour: "", 
-    Min: ""
-  );
+  var _dayTime = DayTime(Day: "", Month: "", Year: "", Hour: "", Min: "");
   late String title;
   String text = "No Value Entered";
 
@@ -69,12 +65,18 @@ class _InputFormState extends State<InputForm> {
         Padding(
           padding: EdgeInsets.all(15.0),
           child: Card(
-            elevation:20,
+            elevation: 20,
             child: Column(
               children: <Widget>[
-                Padding(padding: EdgeInsets.symmetric(vertical:12)),
-                Text("Fill the Form to Check your Heart"),
-                Padding(padding: EdgeInsets.symmetric(vertical:12)),
+                Padding(padding: EdgeInsets.symmetric(vertical: 12)),
+                Text(
+                  "Fill the Form to Check your Heart",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 21,
+                  ),
+                ),
+                Padding(padding: EdgeInsets.symmetric(vertical: 12)),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                   child: TextFormField(
@@ -108,47 +110,7 @@ class _InputFormState extends State<InputForm> {
                     ),
                   ),
                 ),
-                // Row(
-                //   children: [
-                //     Padding(
-                //       padding:
-                //           EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-                //     ),
-                //     DropdownButton(
-                //         value: dropdownvalue,
-                //         icon: const Icon(Icons.keyboard_arrow_down),
-                //         items: items.map((String items) {
-                //           return DropdownMenuItem(
-                //             value: items,
-                //             child: Text(items),
-                //           );
-                //         }).toList(),
-                //         onChanged: (String? newValue) {
-                //           setState(() {
-                //             dropdownvalue = newValue!;
-                //           });
-                //         }),
-                //     Padding(
-                //       padding:
-                //           EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-                //     ),
-                //     DropdownButton(
-                //       value: dropdownvalue,
-                //       icon: const Icon(Icons.keyboard_arrow_down),
-                //       items: items.map((String items) {
-                //         return DropdownMenuItem(
-                //           value: items,
-                //           child: Text(items),
-                //         );
-                //       }).toList(),
-                //       onChanged: (String? newValue) {
-                //         setState(() {
-                //           dropdownvalue = newValue!;
-                //         });
-                //       },
-                //     ),
-                //   ],
-                // ),
+
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                   child: Padding(
@@ -311,8 +273,8 @@ class _InputFormState extends State<InputForm> {
                       CA: _healthParams.CA,
                       Sex: _healthParams.Sex,
                       Thal: _healthParams.Thal,
-                      chol:  _healthParams.chol,
-                      cp: int.parse(value) ,
+                      chol: _healthParams.chol,
+                      cp: int.parse(value),
                       exang: _healthParams.exang,
                       fps: _healthParams.fps,
                       oldpeak: _healthParams.oldpeak,
@@ -581,21 +543,53 @@ class _InputFormState extends State<InputForm> {
                 RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
-                  child: Text('Predict'),
+                  elevation: 25,
+                  padding: EdgeInsets.symmetric(horizontal: 100),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Text(
+                    'Predict',
+                    style: TextStyle(fontSize: 20),
+                  ),
                   onPressed: () async {
+                    setState(() {
+                      predict = true;
+                    });
+
+                    Provider.of<Health>(context, listen: false)
+                        .addInfo(_healthParams);
+                    _dayTime = DayTime(
+                        Day: DateTime.now().day.toString(),
+                        Month: DateTime.now().month.toString(),
+                        Year: DateTime.now().year.toString(),
+                        Hour: DateTime.now().hour.toString(),
+                        Min: DateTime.now().minute.toString());
+
+                    Provider.of<Health>(context, listen: false)
+                        .addDayTime(_dayTime);
+
                     final url = Uri.http("192.168.43.250:5000", "/");
-                    final getUrl = "127.0.0.1:5000" + "/";
+                    final getUrl = "http://192.168.43.250:5000/" + "/";
                     // final res = await http.post(
                     //   url,
                     //   body: json.encode({'test': 'test'}),
                     // );
-                    final res = await http.get(
-                      Uri.parse(getUrl)
-                    );
-                    // final extractedData = json.decode(res.body) as Map<String, dynamic>;
-          
-                    print(res.body);
-          
+                    final response = await http.get(Uri.parse(getUrl));
+
+                    final resDecoded =
+                        json.decode(response.body) as Map<String, dynamic>;
+                    // final ex
+                    Resp = resDecoded;
+
+                    print(response.body);
+                    print(resDecoded['pred']);
+                    print(Resp);
+
+                    setState(() {
+                      prediction = true;
+                    });
+
                     // if (res.statusCode == 200) {
                     //   // final infoResponse = jsonDecode(res.body) as Map<String, dynamic>;
                     //   // prediction = infoResponse['prediction'];
@@ -607,18 +601,6 @@ class _InputFormState extends State<InputForm> {
                     //   // ignore: avoid_print
                     //   print('request failed with status: ${res.statusCode}');
                     // }
-          
-                    Provider.of<Health>(context, listen: false)
-                        .addInfo(_healthParams);
-                    _dayTime = DayTime(
-                      Day: DateTime.now().day.toString(), 
-                      Month: DateTime.now().month.toString(), 
-                      Year: DateTime.now().year.toString(), 
-                      Hour: DateTime.now().hour.toString(), 
-                      Min: DateTime.now().minute.toString()
-                    );
-          
-                    Provider.of<Health>(context, listen:false).addDayTime(_dayTime);
                   },
                 )
               ],
@@ -636,8 +618,27 @@ class _InputFormState extends State<InputForm> {
                   children: <Widget>[
                     Text(
                       'Result:   ',
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Text('Prediction Result: eg no disease '),
+
+                    Resp['pred'] == "0"
+                        ? Text(
+                            "No Heart Diseases",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold),
+                          )
+                        : Text(
+                            "Needs to Meet a Doctor",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+
+                    // Text('Prediction Result: eg no disease '),
                   ],
                 ),
               ),
@@ -650,55 +651,49 @@ class _InputFormState extends State<InputForm> {
                   children: <Widget>[
                     Text(
                       'Risk Level(0-4):      ',
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Text('4'),
+                    Text(
+                      '4',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                    ),
+                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
+                        primary: Colors.blue,
                         onPrimary: Colors.white,
-                        shadowColor: Colors.greenAccent,
+                        shadowColor: Colors.blueAccent,
                         elevation: 3,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0)),
-                        minimumSize: Size(100, 60), //////// HERE
+                        minimumSize: Size(500, 40), //////// HERE
                       ),
-                      onPressed: () {},
-                      child: Text('Save Results'),
+                      onPressed: _setText,
+                      child: Text(
+                        'Send Results',
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      onPrimary: Colors.white,
-                      shadowColor: Colors.greenAccent,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                      minimumSize: Size(115, 60), //////// HERE
-                    ),
-                    onPressed: _setText,
-                    child: Text('Send Results'),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               ),
-              
-              Text(text),
             ]),
           ),
         )
