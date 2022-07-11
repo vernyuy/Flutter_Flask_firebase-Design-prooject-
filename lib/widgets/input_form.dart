@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore, unused_local_variable, avoid_print, use_key_in_widget_constructors, deprecated_member_use, unused_import, annotate_overrides, prefer_const_declarations, dead_code
 
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,10 +18,48 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
+
+  List<double> tempHistList = [];
+  List<double> pulseHistList = [];
+  late double temp;
+  late double pulse;
+  late int risk = 0;
+  Future<void> readData () async{
+    var urlSensor = "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" +
+        "/sensorData.json";
+    
+      final sensorRes = await http.get(Uri.parse(urlSensor));
+    final extractedSensorData =
+          json.decode(sensorRes.body) as Map<String, dynamic>; // Sensor Temp
+      
+      try{
+
+      final sensorRes = await http.get(Uri.parse(urlSensor));
+      if (extractedSensorData == null) {
+        return;
+      }
+      extractedSensorData.forEach((blogId, blogData) {
+        tempHistList.add(blogData["temp"]);
+      });
+
+
+      if (extractedSensorData == null) {
+        return;
+      }
+      extractedSensorData.forEach((blogId, blogData) {
+        pulseHistList.add(blogData["pulse"]);
+      });
+      }catch(error){
+        throw(error);
+      }
+      
+  }
   void initState() {
     super.initState();
-    // readData();
+    readData();
   }
+String predictedText = "";
+  
 
   Map<String, dynamic> Resp = {};
   bool isLoading = true;
@@ -147,21 +186,7 @@ class _InputFormState extends State<InputForm> {
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-                //   child: TextField(
-                //     style: TextStyle(
-                //       fontSize: 15.0,
-                //       height: 0.01,
-                //       color: Colors.black,
-                //     ),
-                //     decoration: InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       labelText: 'Serun Cholesterol',
-                //       hintText: 'Enter Serum Cholesterol',
-                //     ),
-                //   ),
-                // ),
+                
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
                   child: TextField(
@@ -525,21 +550,7 @@ class _InputFormState extends State<InputForm> {
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 1),
-                //   child: TextField(
-                //     style: TextStyle(
-                //       fontSize: 15.0,
-                //       height: 0.01,
-                //       color: Colors.black,
-                //     ),
-                //     decoration: InputDecoration(
-                //       border: OutlineInputBorder(),
-                //       labelText: 'User Name',
-                //       hintText: 'Enter Your Name',
-                //     ),
-                //   ),
-                // ),
+                
                 RaisedButton(
                   textColor: Colors.white,
                   color: Colors.blue,
@@ -553,9 +564,11 @@ class _InputFormState extends State<InputForm> {
                     style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () async {
-                    setState(() {
-                      predict = true;
-                    });
+                    // setState(() {
+                    //   predict = true;
+                    // });
+                     pulse = pulseHistList[0];
+                     temp = tempHistList[0] ;
 
                     Provider.of<Health>(context, listen: false)
                         .addInfo(_healthParams);
@@ -569,8 +582,8 @@ class _InputFormState extends State<InputForm> {
                     Provider.of<Health>(context, listen: false)
                         .addDayTime(_dayTime);
 
-                    final url = Uri.http("192.168.43.250:5000", "/");
-                    final getUrl = "http://192.168.43.250:5000/" + "/";
+                    final url = Uri.http("127.0.0.1:5000", "/");
+                    final getUrl = "http://127.0.0.1:5000" + "/";
                     // final res = await http.post(
                     //   url,
                     //   body: json.encode({'test': 'test'}),
@@ -579,12 +592,35 @@ class _InputFormState extends State<InputForm> {
 
                     final resDecoded =
                         json.decode(response.body) as Map<String, dynamic>;
-                    // final ex
+                    
                     Resp = resDecoded;
 
                     print(response.body);
                     print(resDecoded['pred']);
                     print(Resp);
+                    if(resDecoded['pred']=="1"){
+                      setState(() {
+                        predictedText = "Needs to Meet a Doctor";
+                      });
+                    }else{
+                      setState(() {
+                        predictedText = "No Heart Disease";
+                      });
+                    }
+
+                    risk = (resDecoded['pred']+temp+pulse)/10;
+
+                    if(risk<100){
+                      risk = 1;
+                    }else if(risk<137){
+                      risk = 0;
+                    }else if(risk>158){
+                      risk = 3;
+                    }else if(risk<40){
+                      risk = 3;
+                    }else{
+                      risk = 2;
+                    }
 
                     setState(() {
                       prediction = true;
@@ -620,23 +656,14 @@ class _InputFormState extends State<InputForm> {
                       'Result:   ',
                       style: TextStyle(fontSize: 20),
                     ),
-
-                    Resp['pred'] == "0"
-                        ? Text(
-                            "No Heart Diseases",
+Text(
+                            predictedText,
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold),
                           )
-                        : Text(
-                            "Needs to Meet a Doctor",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
+                       
 
                     // Text('Prediction Result: eg no disease '),
                   ],
@@ -654,9 +681,13 @@ class _InputFormState extends State<InputForm> {
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      '4',
+                      
+                      
+                      risk.toString(),
                       style: TextStyle(fontSize: 20),
                     ),
+
+                    
                   ],
                 ),
               ),
@@ -697,40 +728,6 @@ class _InputFormState extends State<InputForm> {
             ]),
           ),
         )
-        // Container(
-        //   // ignore: prefer_const_constructors
-        //   // ignore: unnecessary_new
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: <Widget>[
-        //       // ignore: duplicate_ignore
-        //       CircularPercentIndicator(
-        //         radius: 160.0,
-        //         lineWidth: 20.0,
-        //         percent: 0.10,
-        //         // ignore: prefer_const_constructors
-        //         center: Text("temp: 40deg"),
-        //         progressColor: Colors.blue,
-        //       ),
-        //       Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-        //       ),
-        //       Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-        //       ),
-        //       Padding(
-        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
-        //       ),
-        //       CircularPercentIndicator(
-        //         radius: 75.0,
-        //         lineWidth: 15.0,
-        //         percent: 0.90,
-        //         center: Text("90%"),
-        //         progressColor: Colors.green,
-        //       )
-        //     ],
-        //   ),
-        //),
       ]),
     );
   }

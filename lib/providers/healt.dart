@@ -10,7 +10,7 @@ import './dateTime.dart';
 class Health with ChangeNotifier {
   void addInfo(HealthInfo healthInfo) {
     // print('hello Legend');
-    const url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" + "/info.json";
+    const url = "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" + "/info.json";
     http.post(
       Uri.parse(url),
       body: json.encode({
@@ -55,7 +55,7 @@ class Health with ChangeNotifier {
 
   void addDayTime(DayTime dayTime) {
     // print('hello Legend');
-    const url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" + "/dayTime.json";
+    const url = "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" + "/dayTime.json";
     http.post(
       Uri.parse(url),
       body: json.encode({

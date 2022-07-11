@@ -44,12 +44,12 @@ class _HistoryState extends State<History> {
     // which we will get in “Add Realtime Database”
     // step with DatabaseURL
 
-    var url = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" +
+    var url = "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" +
         "/prediction.json";
-    var urlSensor = "https://heartdoc-ff00b-default-rtdb.firebaseio.com" +
+    var urlSensor = "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" +
         "/sensorData.json";
     var urlDateTime =
-        "https://heartdoc-ff00b-default-rtdb.firebaseio.com" + "/dayTime.json";
+        "https://heartpredictor-6ecf8-default-rtdb.firebaseio.com" + "/dayTime.json";
 //
     // Do not remove “data.json”,keep it as it is
     try {

@@ -24,7 +24,7 @@ class Profile extends StatelessWidget {
                       height: 250,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Color.fromARGB(183, 244, 248, 250),
+                          color: Color.fromARGB(183, 27, 155, 214),
                           border: Border.all()),
                     ),
                     Positioned(
